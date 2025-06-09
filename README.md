@@ -1,6 +1,12 @@
 # regllm
 
-This project provides a framework for running offline regression tests on Large Language Model (LLM) responses using Ollama and Zod.
+regllm is a library for running offline regression tests on Large Language Model (LLM) responses using Ollama and Zod.
+
+## Installing regllm
+
+```
+npm i regllm
+```
 
 ## Overview
 
@@ -8,10 +14,11 @@ The core of this framework is the `LlmEvaluator` class (found in `src/llm.eval.t
 
 ## Getting Started (Examples)
 
-This is a single file library (`src/llm.eval.ts`). I'd recommend just copying it into your regression test framework for the time being and ensuring you've installed the necessary node dependencies: `npm i ollama zod zod-to-json-schema`. Reference the included jest test suite (`tests/llm.eval.test.ts`) for additional sample usages.
+
+regllm is a single file library (`src/llm.eval.ts`). Below are a few example usages, with additional examples in the included test suite (`tests/llm.eval.test.ts`).
 
 ```typescript
-import { LlmEvaluator, LlmEvalInput } from './llm.eval';
+import { LlmEvaluator, LlmEvalInput } from "regllm"
 
 async function runEvaluation() {
   const evaluator = new LlmEvaluator('llama3.2:latest');
@@ -32,7 +39,7 @@ runEvaluation();
 A more advanced use-case where this library can be utilized is where you want to validate the generated response from your own LLM use within your own applications. 
 
 ```typescript
-import { LlmEvaluator, LlmEvalInput } from '../src/llm.eval';
+import { LlmEvaluator, LlmEvalInput } from "regllm"
 
 describe('LlmEngine', () => {
   let evaluator: LlmEvaluator;

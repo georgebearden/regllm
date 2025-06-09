@@ -1,8 +1,10 @@
 {
   "name": "regllm",
   "author": "@georgebearden",
+  "description": "regllm is a library for running offline regression tests on Large Language Model (LLM) responses using Ollama and Zod",
   "version": "1.0.0",
   "license": "Apache-2.0",
+  "main": "dist/llm.eval.js",
   "engines": {
     "node": ">=14.0.0"
   },
