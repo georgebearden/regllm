@@ -1,4 +1,4 @@
-import ollama from 'ollama';
+import ollama, { Options } from 'ollama';
 import { z } from 'zod';
 import { zodToJsonSchema } from 'zod-to-json-schema';
 
@@ -16,21 +16,27 @@ export interface LlmEvalInput {
   reference_output: string;
 }
 
+export interface LlmEvaluatorProps {
+  readonly model: string;
+  readonly options?: Partial<Options>;
+}
+
 export class LlmEvaluator {
 
-  constructor(private readonly model: string = 'llama3.2:latest') { }
+  constructor(private readonly props: LlmEvaluatorProps) { }
 
   async eval(params: LlmEvalInput): Promise<LlmEvalOutput> {
     const prompt = this.buildEvalPrompt(params);
     
     try {
-      const response = await ollama.chat({
-        model: this.model,
-        messages: [{ role: 'user', content: prompt }],
+      const response = await ollama.generate({
+        model: this.props.model,
+        options: this.props.options,
+        prompt,
         format: zodToJsonSchema(LlmEvalResponseSchema)
       });
 
-      const parsedResponse = JSON.parse(response.message.content);
+      const parsedResponse = JSON.parse(response.response);
       const validatedResponse = LlmEvalResponseSchema.parse(parsedResponse);
       return validatedResponse;
     } catch (error) {

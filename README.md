@@ -69,3 +69,14 @@ describe('LlmEngine', () => {
 })
 ```
 
+## Note on context size and ollama
+By default, ollama uses a context length of 2048 tokens. Depending on the type of evaluations being done, this may or may not be enough. The `LlmEvaluator` class exposes the [Ollama.Options](https://github.com/ollama/ollama-js/blob/c9793cc644592ec18f2a241774c7822fa43bf580/src/interfaces.ts#L12) interface as a constructor property. To override any defaults in ollama, like the context length, you can do the following:
+
+```
+const evaluator = new LlmEvaluator({
+  model: 'llama3.2:latest',
+  options: {
+    num_ctx: 4096 // override options here, like num_ctx
+  }
+});
+```
